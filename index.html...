@@ -30,7 +30,7 @@ ul{margin:8px 0;padding-left:22px}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
 // 1) Supabase sozlamalari
-const SUPABASE_URL="https://rwtfjrtozmbjmhiroonr.supabase.co";
+const SUPABASE_URL="https://rwtfjrtozmbjmhiroonr.supabase.co/rest/v1/";
 const SUPABASE_ANON_KEY="sb_publishable_9cmiBxHtYK0tYDXbYjA9Jg_oAfa2O7j";
 
 // 2) VAQTLAR (soniya). Videoga qarab shu yerda o‘zgartiring.
