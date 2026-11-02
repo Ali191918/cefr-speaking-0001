@@ -1,0 +1,9 @@
+create table results (
+  id bigint generated always as identity primary key,
+  user_id uuid references auth.users default auth.uid(),
+  part text, level text, score int,
+  created_at timestamptz default now()
+);
+alter table results enable row level security;
+create policy "own read" on results for select using (auth.uid() = user_id);
+create policy "own insert" on results for insert with check (auth.uid() = user_id);
