@@ -93,4 +93,3 @@ Step 3. summary: 1-2 short sentences in Uzbek naming the main strength and weakn
     res.status(502).json({ error: "Javobni o‘qib bo‘lmadi" });
   }
 };
-
