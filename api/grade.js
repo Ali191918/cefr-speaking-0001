@@ -18,7 +18,7 @@ const SCHEMA = {
 };
 
 const clamp = (n) => Math.max(0, Math.min(10, Math.round(+n || 0)));
-const levelOf = (s) => (s >= 65 ? "C1" : s >= 51 ? "B2" : s >= 38 ? "B1" : "Below B1");
+const levelOf = (s) => (s >= 65 ? "C1" : s >= 51 ? "B2" : s >= 38 ? "B1" : "A2");
 
 async function callGemini(model, body) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
