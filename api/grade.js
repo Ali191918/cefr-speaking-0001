@@ -1,4 +1,4 @@
-// Vercel serverless funksiya: eng tez bepul Gemini modelidan boshlab sinaydi.
+// Vercel serverless funksiya: tezroq va aniqroq baholash.
 const EXPECTED = { "Part 1.1": 90, "Part 1.2": 105, "Part 2": 120, "Part 3": 120 };
 
 const SCHEMA = {
@@ -18,12 +18,22 @@ const SCHEMA = {
 };
 
 const clamp = (n) => Math.max(0, Math.min(10, Math.round(+n || 0)));
-const levelOf = (s) => (s >= 65 ? "C1" : s >= 51 ? "B2" : s >= 38 ? "B1" : "Below B1");
+const levelOf = (s) => (s >= 65 ? "C1" : s >= 51 ? "B2" : s >= 38 ? "B1" : "A2");
 
-// Tezdan sekinga: birinchisi ishlamasa (nom yo'q, limit tugagan, server band) keyingisi sinaladi.
-const MODELS = [process.env.GEMINI_MODEL, "gemini-3.5-flash-lite", "gemini-2.5-flash-lite", "gemini-2.5-flash"]
-  .filter(Boolean)
-  .filter((m, i, a) => a.indexOf(m) === i);
+async function callGemini(model, body) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+  const opts = {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY },
+    body: JSON.stringify(body),
+  };
+  let r = await fetch(url, opts);
+  if (r.status === 429 || r.status >= 500) {
+    await new Promise((ok) => setTimeout(ok, 1200));
+    r = await fetch(url, opts);
+  }
+  return r;
+}
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") return res.status(405).json({ error: "Faqat POST" });
@@ -55,25 +65,15 @@ Scale: 9-10 = C1 (fluent, wide range, rare errors); 7-8 = B2 (clear, detailed, s
 Rules: be consistent and do not inflate scores. If the candidate used under half of the available time, task must be 5 or lower. Silence, noise or non-English speech gets 0 on all criteria. Memorised or off-topic answers lower task.
 Step 3. summary: 1-2 short sentences in Uzbek naming the main strength and weakness. tips: exactly 3 short, concrete tips in Uzbek.`;
 
-  const body = (gen) => JSON.stringify({
+  const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+  const gen = { responseMimeType: "application/json", responseSchema: SCHEMA, temperature: 0.2, maxOutputTokens: 1500 };
+  if (/2\.5-flash/.test(model)) gen.thinkingConfig = { thinkingBudget: 0 }; // tezlik uchun
+
+  const r = await callGemini(model, {
     contents: [{ parts: [{ text: prompt }, { inline_data: { mime_type: "audio/wav", data: audio } }] }],
     generationConfig: gen,
   });
-
-  let r, lastErr = "";
-  for (const model of MODELS) {
-    const gen = { responseMimeType: "application/json", responseSchema: SCHEMA, temperature: 0.2, maxOutputTokens: 1200 };
-    if (/2\.5/.test(model)) gen.thinkingConfig = { thinkingBudget: 0 }; // o'ylash o'chiq: tezroq
-    r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY },
-      body: body(gen),
-    });
-    if (r.ok) break;
-    lastErr = model + ": " + (await r.text()).slice(0, 200);
-    if (![400, 404, 429, 500, 503].includes(r.status)) break;
-  }
-  if (!r.ok) return res.status(502).json({ error: "Gemini xatosi", detail: lastErr });
+  if (!r.ok) return res.status(502).json({ error: "Gemini xatosi", detail: (await r.text()).slice(0, 300) });
 
   try {
     const j = await r.json();
