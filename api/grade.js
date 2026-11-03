@@ -1,4 +1,3 @@
-// Vercel serverless funksiya: eng tez bepul Gemini modelidan boshlab sinaydi.
 const EXPECTED = { "Part 1.1": 90, "Part 1.2": 105, "Part 2": 120, "Part 3": 120 };
 
 const SCHEMA = {
@@ -93,4 +92,3 @@ Step 3. summary: 1-2 short sentences in Uzbek naming the main strength and weakn
     res.status(502).json({ error: "Javobni o‘qib bo‘lmadi" });
   }
 };
-// Vercel serverless funksiya: tezroq va aniqroq baholash.
