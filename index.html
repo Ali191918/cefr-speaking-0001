@@ -166,7 +166,7 @@ const IMG=(k,n)=>`https://loremflickr.com/800/500/${k}?lock=${n}`;
 const KA="seaside,beach|airplane,airport|library,books|bicycle,city|fastfood,burger|smartphone,hand|city,skyscrapers|football,match|restaurant,dining|shopping,mall|cinema,popcorn|party,celebration|classroom,teacher|bus,street|cafe,friends|concert,crowd|school,children|sunrise,morning|dog,pet|videogame,controller|chess,boardgame|hospital,doctor|gift,present|suit,formal|rain,umbrella".split("|"),KB="mountains,hiking|train,railway|home,reading|car,road|salad,healthy|book,paper|village,countryside|swimming,pool|kitchen,cooking|laptop,online|television,sofa|candle,evening|laptop,lesson|walking,street|park,trees|headphones,music|office,desk|night,moon|cat,pet|jogging,exercise|chess,pieces|card,envelope|casual,clothes|sunny,summer|job,interview".split("|");
 function buildMock(i){
   const [ea,na,eb,nb,tp]=P12[i].split("|"),[pe,px]=P2[i].split("|"),[t3,pr,co]=P3[i].split("|");
-  const pics=[{e:ea,c:na,img:IMG(KA[i],i+201)},{e:eb,c:nb,img:IMG(KB[i],i+301)}];
+  const pics=[{e:ea,c:na,k:KA[i],n:i,img:IMG(KA[i],i+201)},{e:eb,c:nb,k:KB[i],n:i,img:IMG(KB[i],i+301)}];
   return [
   {part:1,pn:"Part 1.1",n:1,text:`What is your favorite ${FAV[i]}?`,...T.q},
   {part:1,pn:"Part 1.1",n:2,text:`Tell me about your ${TELL[i]}.`,...T.q},
@@ -174,10 +174,10 @@ function buildMock(i){
   {part:1,pn:"Part 1.2",n:4,text:"What do you see in these pictures?",pics,desc:`Picture 1: ${na}. Picture 2: ${nb}.`,...T.pic},
   {part:1,pn:"Part 1.2",n:5,text:`Which do you prefer: ${na} or ${nb}? Why?`,pics,...T.q},
   {part:1,pn:"Part 1.2",n:6,text:`Do you think ${tp} are important in people's lives? Why?`,pics,...T.q},
-  {part:2,pn:"Part 2",text:"Look at the photograph.",pics:[{e:pe,c:"",img:IMG(K2[i],i+1)}],desc:`Photograph related to: ${px}.`,
+  {part:2,pn:"Part 2",text:"Look at the photograph.",pics:[{e:pe,c:"",k:K2[i],n:i,img:IMG(K2[i],i+1)}],desc:`Photograph related to: ${px}.`,
    bullets:[`Describe ${px}.`,"Tell about what you usually do or feel about it.","Why is it important for people to have such experiences?"],long:1,...T.p2},
   {part:3,pn:"Part 3",text:`Talk about the advantages and disadvantages of ${t3}. Give your own opinion.`,
-   img:IMG(K3[i],i+101),table:{title:`Advantages and disadvantages of ${t3}.`,pros:pr.split(";"),cons:co.split(";")},long:1,...T.p3}];
+   img:IMG(K3[i],i+101),imgk:K3[i],imgn:i,table:{title:`Advantages and disadvantages of ${t3}.`,pros:pr.split(";"),cons:co.split(";")},long:1,...T.p3}];
 }
 
 // ===== UMUMIY =====
@@ -294,13 +294,35 @@ function renderBoard(){
 function bindBoard(){app.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{lbMode=b.dataset.m;render()})}
 
 // ===== TEST =====
+const imgCache={};let imgNote="",wmOk=0,wmErr="";
+async function wm(k,n){
+  const key=k+"|"+n;if(key in imgCache)return imgCache[key];
+  try{
+    const q=encodeURIComponent(k.replace(/,/g," ")+" filetype:bitmap");
+    const r=await fetch("https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6&gsrlimit=12&prop=imageinfo&iiprop=url|mime&iiurlwidth=800&gsrsearch="+q);
+    const j=await r.json();
+    const pg=Object.values((j.query||{}).pages||{}).filter(x=>x.imageinfo&&/jpeg/.test(x.imageinfo[0].mime)).sort((a,b)=>a.index-b.index);
+    imgCache[key]=pg.length?pg[n%Math.min(5,pg.length)].imageinfo[0].thumburl:"";
+    if(imgCache[key])wmOk++;else wmErr="qidiruv natija bermadi ("+k+")";
+  }catch(e){imgCache[key]="";wmErr=String(e).slice(0,70)}
+  return imgCache[key];
+}
+async function resolveImgs(st){
+  const jobs=[];
+  st.forEach(x=>{
+    (x.pics||[]).forEach(p=>{if(p.k&&!p.done){p.done=1;jobs.push(wm(p.k,p.n).then(u=>{if(u)p.img=u}))}});
+    if(x.imgk&&!x.done){x.done=1;jobs.push(wm(x.imgk,x.imgn).then(u=>{if(u)x.img=u}))}
+  });
+  await Promise.race([Promise.all(jobs),new Promise(r=>setTimeout(r,5000))]);
+  imgNote=wmOk?"":"Rasm manbasiga ulanib bo‘lmadi: "+(wmErr||"kutish vaqti tugadi");
+}
 async function begin(idx,ranked){
   try{stream=await navigator.mediaDevices.getUserMedia({audio:true})}catch{return alert("Mikrofonga ruxsat bering.")}
   ctx=new (window.AudioContext||window.webkitAudioContext)();inRate=ctx.sampleRate;
   src=ctx.createMediaStreamSource(stream);proc=ctx.createScriptProcessor(4096,1,1);
   proc.onaudioprocess=e=>{if(capturing)chunks.push(new Float32Array(e.inputBuffer.getChannelData(0)))};
   src.connect(proc);proc.connect(ctx.destination);
-  steps=buildMock(idx);curIdx=idx;curRanked=ranked;
+  steps=buildMock(idx);curIdx=idx;curRanked=ranked;await resolveImgs(steps);
   screen="test";aborted=false;unit=null;pending=[];
   if(window.speechSynthesis)speechSynthesis.speak(new SpeechSynthesisUtterance(""));
   run();
@@ -317,8 +339,9 @@ function stepper(p){return `<div class="st">`+[1,2,3].map(i=>`${i>1?`<div class=
 function view(s){
   let h=`<div class="q">`;
   h+=s.n?`<b>Question ${s.n}.</b> ${esc(s.text)}`:`<b>${esc(s.text)}</b>`;
-  if(s.pics)h+=`<div class="pics">${s.pics.map(p=>p.img?`<img class="photo" src="${p.img}" alt="" onerror="this.outerHTML='<div class=pic>${p.e}</div>'">`:`<div class="pic">${p.e}<small>${esc(p.c)}</small></div>`).join("")}</div>`;
-  if(s.img)h+=`<img class="photo" src="${s.img}" alt="" onerror="this.remove()">`;
+  if(s.pics)h+=`<div class="pics">${s.pics.map(p=>p.img?`<img class="photo" src="${p.img}" alt="" onerror="this.outerHTML='<div class=pic>${p.e}<small>rasm yuklanmadi</small></div>'">`:`<div class="pic">${p.e}<small>${esc(p.c)}</small></div>`).join("")}</div>`;
+  if(s.img)h+=`<img class="photo" src="${s.img}" alt="" onerror="this.outerHTML='<div class=mu>rasm yuklanmadi</div>'">`;
+  if(imgNote&&(s.pics||s.img))h+=`<div class="mu" style="font-size:12px">${esc(imgNote)}</div>`;
   if(s.bullets)h+=`<ul>${s.bullets.map(b=>`<li>${esc(b)}</li>`).join("")}</ul>`;
   if(s.table)h+=`<table><tr><th colspan="2" style="text-align:center">${esc(s.table.title)}</th></tr><tr><th>Pros</th><th>Cons</th></tr><tr><td><ul>${s.table.pros.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></td><td><ul>${s.table.cons.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></td></tr></table>`;
   h+=`</div>`;
