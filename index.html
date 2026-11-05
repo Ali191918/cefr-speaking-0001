@@ -67,17 +67,18 @@ tr>*:last-child{border-right:0}tr:last-child>*{border-bottom:0}
 .g div{background:linear-gradient(135deg,#eef2ff,#e8f7fb);border-radius:14px}
 #by{pointer-events:auto;background:#ffffffe6;box-shadow:0 2px 8px #1a24521f;bottom:78px}
 #by a{color:var(--ac);text-decoration:none;font-weight:600}
+.pics{display:flex;gap:10px}.pics .photo{margin:14px 0}.pics .photo:not(:only-child){flex:1;min-width:0;aspect-ratio:1/1}.pics .pic{flex:1}
+.by2{text-align:center;font-size:12px;color:var(--mu);margin:6px 0 90px}.by2 a{color:var(--ac);text-decoration:none;font-weight:600}
 </style></head>
-<body><div class="wrap" id="app"></div><div id="stt"></div><div id="by"></div>
+<body><div class="wrap" id="app"></div><div id="stt"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
 const SUPABASE_URL="https://rwtfjrtozmbjmhiroonr.supabase.co";
 const SUPABASE_ANON_KEY="sb_publishable_9cmiBxHtYK0tYDXbYjA9Jg_oAfa2O7j";
 const TG_USER="Alisher0926"; // Telegram nomingiz, @ belgisiz
-document.getElementById("by").innerHTML=`Yaratuvchi: <a href="https://t.me/${TG_USER}" target="_blank" rel="noopener">Telegram @${TG_USER}</a>`;
 
 // ===== SOZLAMALAR =====
-const STEP_H=2; // har foydalanuvchiga 1-mock darhol ochiladi, keyin har 2 soatda yangisi
+const WAIT_MS=36e5; // mock topshirilgach keyingisi 1 soatdan keyin ochiladi (1-mock darhol ochiq)
 const T={q:{prep:5,ans:30},pic:{prep:10,ans:45},p2:{prep:60,ans:120},p3:{prep:60,ans:120}};
 
 // ===== 25 TA MOCK MA'LUMOTI (har bir mock = shu ro'yxatlarning i-qatori) =====
@@ -162,9 +163,10 @@ learning two languages|better jobs;sharper memory;easier travel|takes a long tim
 
 const K2="relax,park|teacher,classroom|travel,mountains|gift,present|house,apartment|book,reading|cinema,movie|family,celebration|traditional,dish|football,sport|smartphone,app|train,journey|friends,smiling|birthday,cake|city,skyline|garden,park|singer,concert|guitar,learning|camera,photograph|airplane,travel|university,students|festival,crowd|jacket,clothes|cafe,coffee|portrait,person".split("|"),K3="laptop,home|studying,laptop|smartphone,social|city,traffic|graduation,abroad|child,smartphone|electric,car|burger,fastfood|bus,metro|parcel,shopping|student,cafe|child,studying|tourist,travel|robot,technology|family,home|children,sport|ebook,tablet|night,city|school,uniform|classroom,computer|big,family|volunteer,people|backpack,travel|laptop,meeting|language,books".split("|");
 const IMG=(k,n)=>`https://loremflickr.com/800/500/${k}?lock=${n}`;
+const KA="seaside,beach|airplane,airport|library,books|bicycle,city|fastfood,burger|smartphone,hand|city,skyscrapers|football,match|restaurant,dining|shopping,mall|cinema,popcorn|party,celebration|classroom,teacher|bus,street|cafe,friends|concert,crowd|school,children|sunrise,morning|dog,pet|videogame,controller|chess,boardgame|hospital,doctor|gift,present|suit,formal|rain,umbrella".split("|"),KB="mountains,hiking|train,railway|home,reading|car,road|salad,healthy|book,paper|village,countryside|swimming,pool|kitchen,cooking|laptop,online|television,sofa|candle,evening|laptop,lesson|walking,street|park,trees|headphones,music|office,desk|night,moon|cat,pet|jogging,exercise|chess,pieces|card,envelope|casual,clothes|sunny,summer|job,interview".split("|");
 function buildMock(i){
   const [ea,na,eb,nb,tp]=P12[i].split("|"),[pe,px]=P2[i].split("|"),[t3,pr,co]=P3[i].split("|");
-  const pics=[{e:ea,c:na},{e:eb,c:nb}];
+  const pics=[{e:ea,c:na,img:IMG(KA[i],i+201)},{e:eb,c:nb,img:IMG(KB[i],i+301)}];
   return [
   {part:1,pn:"Part 1.1",n:1,text:`What is your favorite ${FAV[i]}?`,...T.q},
   {part:1,pn:"Part 1.1",n:2,text:`Tell me about your ${TELL[i]}.`,...T.q},
@@ -236,7 +238,13 @@ function agg(rows,min){
 }
 function weekStart(){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d}
 function streak(){const ds=new Set(mine.map(r=>dkey(new Date(r.created_at))));let d=new Date();if(!ds.has(dkey(d)))d=new Date(+d-DAY);let n=0;while(ds.has(dkey(d))){n++;d=new Date(+d-DAY)}return n}
-function unlocked(){return Math.min(25,1+Math.floor((Date.now()-joined)/(STEP_H*36e5)))}
+function progress(){
+  const f={};mine.forEach(r=>{if(r.mock_no){const t=Date.parse(r.created_at);if(!f[r.mock_no]||t<f[r.mock_no])f[r.mock_no]=t}});
+  const mx=Math.max(0,...Object.keys(f).map(Number));
+  if(!mx)return {un:1,openAt:0};
+  const openAt=f[mx]+WAIT_MS;
+  return {un:Math.min(25,Date.now()>=openAt?mx+1:mx),openAt};
+}
 const MED=["🥇","🥈","🥉"];
 
 function nav(){return `<nav><button data-t="home" class="${tab==="home"?"on":""}">🏠 Asosiy</button><button data-t="board" class="${tab==="board"?"on":""}">🏆 Reyting</button></nav>`}
@@ -253,10 +261,10 @@ function renderHome(){
   const bd=[];if(me&&me.q&&rank<=3)bd.push(MED[rank-1]+" "+rank+"-o‘rin");
   if(wk[0]&&wk[0].id===uid)bd.push("🏆 Hafta chempioni");
   const st=streak();if(st>=2)bd.push("🔥 "+st+" kun");
-  const un=unlocked(),doneSet=new Set(mine.filter(r=>r.ranked).map(r=>r.mock_no));
+  const {un,openAt}=progress(),doneSet=new Set(mine.filter(r=>r.ranked).map(r=>r.mock_no));
   const nx=Array.from({length:un},(_,i)=>i+1).find(n=>!doneSet.has(n));
-  const left=un<25?joined+un*STEP_H*36e5-Date.now():0,h=Math.floor(left/36e5),m=Math.floor(left%36e5/6e4);
-  const wait=un<25?`Keyingi mock ${h} soat ${m} daqiqadan so‘ng ochiladi.`:"Barcha 25 ta mock ochilgan.";
+  const left=Math.max(0,openAt-Date.now()),h=Math.floor(left/36e5),m=Math.floor(left%36e5/6e4);
+  const wait=un>=25?"Barcha 25 ta mock ochilgan.":left>0?`Keyingi mock ${h} soat ${m} daqiqadan so‘ng ochiladi.`:"Bu mock’ni topshirganingizdan 1 soat o‘tgach keyingisi ochiladi.";
   const tc=nx?`<p>Mock #${nx} tayyor. Birinchi urinish reytingga hisoblanadi.</p><button data-go="${nx-1}" data-r="1">▶ Mock #${nx} ni boshlash</button><p class="mu">${wait}</p>`
     :`<p>✅ Ochilgan mock’larning hammasi topshirildi.</p><p class="mu">${wait}</p>`;
   const prac=Array.from({length:un},(_,i)=>`<button class="sec" data-go="${i}" data-r="${doneSet.has(i+1)?0:1}">#${i+1}${doneSet.has(i+1)?" ✓":""}</button>`).join("");
@@ -264,9 +272,10 @@ function renderHome(){
   <div class="stats"><div><b>${me?me.total:0}</b><small>Jami ball</small></div><div><b>${me?me.avg.toFixed(1):"—"}</b><small>O‘rtacha</small></div><div><b>${me&&me.q?"#"+rank:"—"}</b><small>Reyting</small></div><div><b>${me?me.n:0}</b><small>Mock</small></div></div>
   ${me&&!me.q?`<p class="mu">Reytingga kirish uchun yana ${3-me.n} ta reytingli mock topshiring.</p>`:""}</div>
   <div class="card"><h2>Navbatdagi mock</h2>${tc}</div>
-  <div class="card"><h2>Barcha mock’lar</h2><p class="mu">Har 2 soatda yangisi ochiladi. ✓ belgilini qayta ishlasangiz, u mashq bo‘ladi va ball bermaydi.</p><div class="pl">${prac}</div></div>
+  <div class="card"><h2>Barcha mock’lar</h2><p class="mu">Mock’ni topshirgach, 1 soatdan keyin keyingisi ochiladi. ✓ belgilini qayta ishlasangiz, u mashq bo‘ladi va ball bermaydi.</p><div class="pl">${prac}</div></div>
   <div class="card"><h2>So‘nggi natijalar</h2>${err?`<p class="mu">Xato: ${esc(err)}</p>`:mine.length?mine.slice(0,6).map(r=>`<div class="row2"><span class="n">${esc(r.part)} · ${new Date(r.created_at).toLocaleDateString()}${r.ranked?" 🏅":""}</span><b>${esc(r.level)} · ${r.score}/75</b></div>`).join(""):'<p class="mu">Hozircha natija yo‘q.</p>'}</div>
-  <button class="sec" id="out">Chiqish</button>`;
+  <button class="sec" id="out">Chiqish</button>
+  <div class="by2">Yaratuvchi: <a href="https://t.me/${TG_USER}" target="_blank" rel="noopener">Telegram @${TG_USER}</a></div>`;
 }
 function bindHome(){
   app.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>begin(+b.dataset.go,b.dataset.r==="1"));
@@ -399,3 +408,4 @@ async function result(rs){
   $("#back").onclick=home;
 }
 </script></body></html>
+
