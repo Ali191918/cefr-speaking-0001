@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="uz"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CEFR Speaking · Mock</title>
+<link rel="icon" type="image/svg+xml" href="/logo.svg"><link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#4f46e5"><link rel="apple-touch-icon" href="/icon-192.png">
+<style>
+:root{--bg:#eef1f8;--cd:#fff;--tx:#161a2b;--mu:#6b7288;--ac:#4f46e5;--ac2:#06b6d4;--g:#4f9238;--b:#41adc9;--bd:#e3e7f2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:14px 14px 96px}
+h1{font-size:24px;margin:8px 0}h2{font-size:18px;margin:0 0 10px}.mu{color:var(--mu);font-size:14px}
+.card{background:var(--cd);border-radius:20px;padding:16px;margin:12px 0;box-shadow:0 4px 18px #1a24521a}
+.hero{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff}.hero .mu{color:#ffffffcc}
+button{font:inherit;border:0;border-radius:14px;padding:13px 16px;background:var(--ac);color:#fff;width:100%;margin-top:10px;cursor:pointer}
+button.sec{background:#eef0fb;color:var(--ac)}button.sm{width:auto;padding:8px 14px;font-size:14px;margin:0}button:disabled{opacity:.5}
+input{font:inherit;width:100%;padding:13px;margin-top:8px;border-radius:14px;border:1px solid var(--bd);background:#fff;color:var(--tx)}
+.top{display:flex;align-items:center;gap:12px}.av{width:52px;height:52px;border-radius:50%;background:#fff3;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;flex:none}
+.bd{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}.bd span{background:#fff3;border-radius:999px;padding:2px 9px;font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px;text-align:center}
+.stats div{background:#fff2;border-radius:14px;padding:8px 2px}.stats b{display:block;font-size:20px}.stats small{font-size:11px;opacity:.85}
+.pl{display:flex;flex-wrap:wrap;gap:8px}.pl button{width:auto;margin:0;padding:8px 12px;font-size:14px}
+.row2{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px}.row2.me{background:#eef0fb;font-weight:600}
+.rk{width:34px;text-align:center;font-size:18px;flex:none}.row2 .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}.row2.dim{opacity:.55}
+.tabs{display:flex;gap:8px}.tabs button{margin:0}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;padding:8px 14px calc(8px + env(safe-area-inset-bottom,0px));background:#ffffffee;backdrop-filter:blur(8px);box-shadow:0 -4px 16px #1a245215;z-index:4}
+nav button{margin:0;background:transparent;color:var(--mu)}nav button.on{background:#eef0fb;color:var(--ac)}
+.exam{box-shadow:0 4px 24px #1a245226}
+.st{display:flex;align-items:center;margin:4px 0 18px}
+.c{width:54px;height:54px;border-radius:50%;background:var(--b);color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;flex:none;box-shadow:0 2px 5px #0003}
+.c.on,.c.done{background:var(--g)}.bar{height:20px;flex:1;background:var(--b);max-width:150px}.bar.done{background:var(--g)}
+.row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}.q{flex:1;min-width:240px;font-size:18px}
+.tm{width:150px;text-align:center;flex:none;margin:0 auto}
+.ring{position:relative;width:140px;height:140px}.ring svg{transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:56px;font-weight:400}
+.rect{background:var(--g);color:#fff;font-size:40px;padding:10px 14px;font-variant-numeric:tabular-nums;border-radius:6px}
+.pics{display:flex;gap:10px;margin:12px 0}.pic{flex:1;background:#eef2f5;border-radius:10px;padding:18px 6px;text-align:center;font-size:54px}
+.pic small{display:block;font-size:14px;color:#555}
+table{border-collapse:collapse;width:100%;margin-top:10px;font-size:16px}td,th{border:1px solid #111;padding:8px;text-align:left;vertical-align:top}
+ul{margin:8px 0;padding-left:22px}
+.big{font-size:56px;font-weight:700;text-align:center;color:var(--g)}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.g div{background:#eef2f5;border-radius:12px;padding:8px;text-align:center}
+#by{position:fixed;right:6px;bottom:62px;z-index:5;font-size:11px;color:#555;background:#ffffffd9;padding:2px 8px;border-radius:8px;pointer-events:none}
+#stt{position:fixed;top:8px;right:8px;z-index:5;font-size:13px;color:#fff;background:#111d;padding:5px 11px;border-radius:999px;display:none}
+#stt.rec::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:#ff4d4d;margin-right:6px;animation:bl 1s infinite}
+@keyframes bl{50%{opacity:.2}}
+
+body{background:linear-gradient(180deg,#e6ebff 0,#f6f8ff 340px,#f6f8ff 100%) fixed}
+.wrap{padding-top:18px}
+h1{font-size:26px;font-weight:800;letter-spacing:-.3px}h2{font-size:19px;font-weight:700}
+.card{border-radius:24px;padding:18px;border:1px solid #ffffffb0;box-shadow:0 10px 30px #3b3f8f14,0 2px 6px #3b3f8f0d}
+.hero{background:radial-gradient(120% 140% at 0 0,#7c5cff 0,#4f46e5 45%,#06b6d4 120%);box-shadow:0 14px 34px #4f46e555}
+button{background:linear-gradient(135deg,#4f46e5,#7c5cff);box-shadow:0 6px 16px #4f46e53d;font-weight:600;transition:transform .12s,box-shadow .12s}
+button:active{transform:scale(.97);box-shadow:0 2px 8px #4f46e53d}
+button.sec{background:#eef0fb;color:var(--ac);box-shadow:none}
+input{border:1.5px solid var(--bd);border-radius:14px;outline:0}input:focus{border-color:var(--ac);box-shadow:0 0 0 4px #4f46e51f}
+nav{left:12px;right:12px;bottom:10px;border-radius:22px;padding:8px 8px;box-shadow:0 10px 30px #3b3f8f2e;background:#ffffffee}
+nav button{box-shadow:none;background:transparent;color:var(--mu)}nav button.on{background:#eef0fb;color:var(--ac)}
+.exam{padding:22px 20px;box-shadow:0 14px 40px #3b3f8f22}
+.q{font-size:19px;line-height:1.6}
+.photo{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:18px;margin:14px 0;background:#e9ecfa;box-shadow:0 6px 18px #1a24522e}
+.pic{background:linear-gradient(135deg,#eef2ff,#e3f6fb);border-radius:18px}
+.rect{background:linear-gradient(135deg,#4f9238,#6bb552);border-radius:14px;box-shadow:0 6px 16px #4f923855;text-align:center}
+.ring b{font-weight:300}
+table{border-collapse:separate;border-spacing:0;border:1px solid #cfd6ea;border-radius:14px;overflow:hidden}
+td,th{border:0;border-bottom:1px solid #e1e6f4;border-right:1px solid #e1e6f4}th{background:#f1f4ff}
+tr>*:last-child{border-right:0}tr:last-child>*{border-bottom:0}
+.row2{border-radius:14px}.row2.me{background:linear-gradient(90deg,#e6e9ff,#f1f4ff)}
+.g div{background:linear-gradient(135deg,#eef2ff,#e8f7fb);border-radius:14px}
+#by{pointer-events:auto;background:#ffffffe6;box-shadow:0 2px 8px #1a24521f;bottom:78px}
+#by a{color:var(--ac);text-decoration:none;font-weight:600}
+.pics{display:flex;gap:10px}.pics .photo{margin:14px 0}.pics .photo:not(:only-child){flex:1;min-width:0;aspect-ratio:1/1}.pics .pic{flex:1}
+.by2{text-align:center;font-size:12px;color:var(--mu);margin:6px 0 90px}.by2 a{color:var(--ac);text-decoration:none;font-weight:600}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.acts button{padding:12px 6px;font-size:14px}.row2[data-det]{cursor:pointer}details summary{cursor:pointer;color:var(--ac);font-weight:600;margin-top:8px}
+.brand{display:flex;align-items:center;gap:10px;margin:2px 4px 14px}.brand svg{width:40px;height:40px;border-radius:12px;box-shadow:0 4px 12px #4f46e555}.brand b{font-size:20px;font-weight:800;letter-spacing:-.3px}.logo-big{text-align:center;margin:18px 0 6px}.logo-big svg{width:92px;height:92px;border-radius:26px;box-shadow:0 12px 28px #4f46e55c}.logo-big h1{margin:12px 0 2px}
+</style></head>
+<body><div class="wrap" id="app"></div><div id="stt"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+const SUPABASE_URL="BU_YERGA_URL";
+const SUPABASE_ANON_KEY="BU_YERGA_ANON_KEY";
+const TG_USER="Alisher0926"; // Telegram nomingiz, @ belgisiz
+
+// ===== SOZLAMALAR =====
+const WAIT_MS=36e5; // mock topshirilgach keyingisi 1 soatdan keyin ochiladi (1-mock darhol ochiq)
+const T={q:{prep:5,ans:30},pic:{prep:10,ans:45},p2:{prep:60,ans:120},p3:{prep:60,ans:120}};
+
+// ===== 25 TA MOCK MA'LUMOTI (har bir mock = shu ro'yxatlarning i-qatori) =====
+const FAV="food,season,color,song,movie,sport,book,day of the week,animal,drink,subject at school,holiday,city,game,fruit,singer,app,piece of clothing,restaurant,hobby,month,kind of weather,TV show,flower,place to visit".split(",");
+const TELL="best friend,family,hometown,house,daily routine,school,job or studies,favorite teacher,neighbours,last holiday,weekend,morning,childhood,room,phone,city,free time,friends,grandparents,street,university,class,best day,village,pet".split(",");
+const LIKE="cooking,reading,shopping,walking,travelling,music,football,swimming,gardening,taking photos,watching movies,learning languages,getting up early,rainy weather,snow,winter,working in a team,helping others,drawing,dancing,video games,tea,fast food,cycling,meeting new people".split(",");
+const P12=`🏖️|the seaside|🏔️|the mountains|holidays
+✈️|a plane|🚆|a train|travelling
+📚|a library|🏠|home|studying
+🚲|a bicycle|🚗|a car|city transport
+🍕|fast food|🥗|home-cooked meals|healthy eating
+📱|a phone|📖|a paper book|reading
+🏙️|a city|🌾|a village|the place to live
+⚽|football|🏊|swimming|sport
+👨‍🍳|a restaurant|🍳|a home kitchen|cooking
+🛍️|a shopping mall|💻|an online shop|shopping
+🎬|a cinema|📺|TV at home|watching films
+🎂|a party|🏡|a quiet evening|celebrations
+👩‍🏫|a classroom|💻|an online lesson|learning
+🚌|a bus|🚶|walking|getting around
+☕|a café|🌳|a park|meeting friends
+🎸|a concert|🎧|headphones|music
+🏫|school|🏢|an office|daily life
+🌅|the morning|🌙|the night|working time
+🐕|a dog|🐈|a cat|keeping pets
+🎮|video games|♟️|board games|games
+🏥|a hospital|🏃|exercise|health
+🎁|a gift|✉️|a card|giving presents
+👗|formal clothes|👕|casual clothes|fashion
+🌧️|rainy weather|☀️|sunny weather|weather
+🎓|a university|💼|a job|life after school`.split("\n");
+const P2=`🏞️|a place where you like to relax
+🎓|a teacher who influenced you
+✈️|a trip you remember well
+🎁|a gift you gave or received
+🏠|a house or apartment you like
+📚|a book that you enjoyed
+🎬|a film that made an impression on you
+👨‍👩‍👧|a family celebration
+🍲|a traditional dish
+🏅|a sport or game you enjoy
+💻|a useful app or website
+🚆|a journey by train or bus
+🧑‍🤝‍🧑|a friend you have known for a long time
+🎂|a birthday you remember
+🏙️|a city you would like to visit
+🌳|a park or garden you like
+🎵|a song or singer you like
+🛠️|a skill you learned recently
+📸|a photograph that is special to you
+🚲|a way of travelling you enjoy
+🏫|your school or university days
+🎤|a public event you attended
+🧥|an item of clothing you like
+☕|a café or restaurant you often visit
+🌟|a person you admire`.split("\n");
+const P3=`working from home|saves travel time;flexible schedule;comfortable place|hard to switch off;less contact with colleagues;home distractions
+online learning|study anywhere;cheaper courses;own pace|less motivation;no live practice;screen fatigue
+social media|keeps people connected;quick news;business chances|wastes time;fake information;hurts privacy
+living in a big city|more jobs;better services;lots of entertainment|expensive housing;pollution;noisy and crowded
+studying abroad|new language skills;wider view of the world;better career|homesickness;high costs;culture shock
+smartphones for children|helpful apps;easy contact;learning games|screen addiction;poor sleep;unsafe content
+electric cars|no exhaust fumes;cheap running costs;quiet engines|expensive to buy;few charging points;battery waste
+fast food|quick and cheap;convenient;tasty|unhealthy;weight gain;little nutrition
+public transport|cheaper than a car;less traffic;eco-friendly|crowded at rush hour;fixed timetable;less comfort
+shopping online|saves time;lower prices;wide choice|cannot try things;delivery delays;risk of fraud
+part-time jobs for students|earn money;work experience;independence|less study time;tiredness;low pay
+homeschooling|flexible lessons;individual attention;safe place|no classmates;parents overloaded;limited subjects
+tourism|brings money;creates jobs;shares cultures|damages nature;rising prices;crowded places
+artificial intelligence|saves time;helps medicine;improves accuracy|job losses;privacy risks;over-reliance
+living with parents|saves money;family support;home food|less privacy;less independence;arguments
+sports for children|good health;teamwork;discipline|injuries;pressure to win;less study time
+reading e-books|light to carry;cheap;adjustable text|eye strain;battery needed;no paper feel
+working night shifts|higher pay;quiet workplace;free daytime|poor sleep;health risks;less family time
+school uniforms|equality;saves morning time;sense of unity|less self-expression;uncomfortable;extra cost
+technology in the classroom|interesting lessons;fast information;digital skills|distraction;cheating;technical problems
+big families|always help each other;more fun;learn to share|high costs;little space;less attention
+volunteering|helps others;new friends;useful skills|takes free time;unpaid;can be tiring
+a gap year|rest after school;life experience;clear goals|losing study habits;costs;falling behind
+online meetings|no travel;easy to record;flexible|poor connection;less teamwork;tiring screens
+learning two languages|better jobs;sharper memory;easier travel|takes a long time;confusing at first;needs practice`.split("\n");
+
+const K2="city park bench|teacher classroom blackboard|hikers mountain trail|gift box ribbon|modern house exterior|person reading book|cinema auditorium|family celebration dinner|plov pilaf dish|football match players|smartphone screen apps|railway train passengers|group of friends|birthday cake candles|city skyline panorama|botanical garden path|singer on stage concert|learning to play guitar|vintage family photograph|passenger airplane flying|university campus students|festival crowd|winter jacket clothing|cafe interior coffee|portrait photograph man".split("|"),K3="working from home laptop|online lesson laptop student|social media smartphone|big city traffic skyscrapers|international students graduation|child using smartphone|electric car charging|fast food hamburger|public transport bus metro|online shopping parcel delivery|student working cafe waiter|child studying at home|tourists sightseeing|robot artificial intelligence|family living room|children playing sport|e-book reader tablet|city at night|school uniform students|computer classroom students|large family portrait|volunteers cleaning|backpacker travelling|video conference laptop|language learning books".split("|");
+const IMG=(k,n)=>`https://loremflickr.com/800/500/${k.split(" ").slice(0,2).join(",")}?lock=${n}`;
+const KA="seaside beach sea|passenger airplane|library interior bookshelves|bicycle city street|fast food hamburger|smartphone in hand|city skyscrapers|football match|restaurant interior|shopping mall interior|cinema auditorium|birthday party|classroom teacher|city bus street|cafe interior|concert crowd stage|school building|sunrise morning|dog pet|video game controller|hospital building|gift box ribbon|formal suit clothes|rainy day umbrella|university campus".split("|"),KB="mountain peak snow landscape|passenger train railway station|study desk room home|car driving road|home cooked meal dinner table|open paper book pages|village houses countryside|swimming pool swimmer|home kitchen cooking|online shopping laptop credit card|television set living room|evening reading lamp armchair|online lesson video call student|people walking pavement|city park trees people|headphones listening music|office desk computer workers|city night lights|domestic cat|board game chess players|jogging exercise running|greeting card envelope|casual clothes t-shirt jeans|sunny day blue sky|job interview office handshake".split("|");
+function buildMock(i){
+  const [ea,na,eb,nb,tp]=P12[i].split("|"),[pe,px]=P2[i].split("|"),[t3,pr,co]=P3[i].split("|");
+  const pics=[{e:ea,c:na,k:KA[i],n:i,img:IMG(KA[i],i+201)},{e:eb,c:nb,k:KB[i],n:i,img:IMG(KB[i],i+301)}];
+  return [
+  {part:1,pn:"Part 1.1",n:1,text:`What is your favorite ${FAV[i]}?`,...T.q},
+  {part:1,pn:"Part 1.1",n:2,text:`Tell me about your ${TELL[i]}.`,...T.q},
+  {part:1,pn:"Part 1.1",n:3,text:`Do you like ${LIKE[i]}? Why?`,...T.q},
+  {part:1,pn:"Part 1.2",n:4,text:"What do you see in these pictures?",pics,desc:`Picture 1: ${na}. Picture 2: ${nb}.`,...T.pic},
+  {part:1,pn:"Part 1.2",n:5,text:`Which do you prefer: ${na} or ${nb}? Why?`,pics,...T.q},
+  {part:1,pn:"Part 1.2",n:6,text:`Do you think ${tp} are important in people's lives? Why?`,pics,...T.q},
+  {part:2,pn:"Part 2",text:"Look at the photograph.",pics:[{e:pe,c:"",k:K2[i],n:i,img:IMG(K2[i],i+1)}],desc:`Photograph related to: ${px}.`,
+   bullets:[`Describe ${px}.`,"Tell about what you usually do or feel about it.","Why is it important for people to have such experiences?"],long:1,...T.p2},
+  {part:3,pn:"Part 3",text:`Talk about the advantages and disadvantages of ${t3}. Give your own opinion.`,
+   img:IMG(K3[i],i+101),imgk:K3[i],imgn:i,table:{title:`Advantages and disadvantages of ${t3}.`,pros:pr.split(";"),cons:co.split(";")},long:1,...T.p3}];
+}
+
+// ===== UMUMIY =====
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const $=s=>document.querySelector(s),app=$("#app");
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const mmss=n=>Math.floor(n/60)+":"+String(n%60).padStart(2,"0");
+const DAY=864e5,dkey=d=>d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate();
+let joined=Date.now(),uid=null,nick="",mine=[],board=[],err="",tab="home",lbMode="week",screen="init";
+let steps=[],curIdx=0,curRanked=false;
+let stream,ctx,src,proc,inRate,capturing=false,aborted=false,skipFn=null,unit=null,chunks=[],secs=0,qs=[],pending=[];
+
+sb.auth.onAuthStateChange((_e,s)=>{setTimeout(()=>{
+  if(!s){uid=null;authView();return}
+  if(screen==="init"||screen==="auth")boot(s.user.id);
+},0)});
+
+const LOGO=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4f46e5"/><stop offset=".55" stop-color="#7c5cff"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#lg1)"/><path d="M148 120h216a52 52 0 0 1 52 52v108a52 52 0 0 1-52 52H262l-82 66v-66h-32a52 52 0 0 1-52-52V172a52 52 0 0 1 52-52z" fill="#fff"/><rect x="147" y="198" width="26" height="56" rx="13" fill="#4f46e5"/><rect x="195" y="176" width="26" height="100" rx="13" fill="#3c62e0"/><rect x="243" y="156" width="26" height="140" rx="13" fill="#2a7edc"/><rect x="291" y="176" width="26" height="100" rx="13" fill="#189ad8"/><rect x="339" y="198" width="26" height="56" rx="13" fill="#06b6d4"/></svg>`;
+function shell(html){return `<div class="wrap">${html}</div>`}
+function authView(msg=""){screen="auth";
+  app.innerHTML=`<div class="logo-big">${LOGO}<h1>CEFR Speaking</h1><p class="mu">Mock testlar va reyting</p></div>
+  <div class="card"><input id="em" type="email" placeholder="Email" autocomplete="email">
+  <input id="pw" type="password" placeholder="Parol (kamida 6 belgi)">
+  <button id="in">Kirish</button><button id="up" class="sec">Ro‘yxatdan o‘tish</button><p class="mu" id="msg">${esc(msg)}</p></div>`;
+  const say=m=>$("#msg").textContent=m;
+  $("#in").onclick=async()=>{const {error}=await sb.auth.signInWithPassword({email:$("#em").value.trim(),password:$("#pw").value});if(error)say("Xato: "+error.message)};
+  $("#up").onclick=async()=>{const {data,error}=await sb.auth.signUp({email:$("#em").value.trim(),password:$("#pw").value});
+    if(error)say("Xato: "+error.message);else if(!data.session)say("Emailingizga tasdiqlash xati yuborildi.")};
+}
+async function boot(id){
+  uid=id;app.innerHTML=`<div class="card mu">Yuklanmoqda…</div>`;
+  const {data,error}=await sb.from("profiles").select("nickname,created_at").eq("user_id",id).maybeSingle();
+  if(error){screen="auth";app.innerHTML=`<div class="card"><h2>Xato</h2><p class="mu">${esc(error.message)}<br>setup2.sql ni Supabase’da ishga tushirdingizmi?</p><button id="rt">Qayta urinish</button><button class="sec" id="lo">Chiqish</button></div>`;
+    $("#rt").onclick=()=>boot(id);$("#lo").onclick=()=>sb.auth.signOut();return}
+  if(data&&data.nickname){nick=data.nickname;joined=Date.parse(data.created_at)||Date.now();home()}else nickView();
+}
+function nickView(msg=""){screen="nick";
+  app.innerHTML=`<div class="card"><h2>Taxallus tanlang</h2><p class="mu">Reytingda faqat shu taxallus ko‘rinadi. 3–16 belgi: lotin harflari, raqam, _ yoki nuqta.</p>
+  <input id="nk" maxlength="16" placeholder="masalan: alisher_07"><button id="sv">Saqlash</button><p class="mu" id="msg">${esc(msg)}</p></div>`;
+  $("#sv").onclick=async()=>{const v=$("#nk").value.trim();
+    if(!/^[A-Za-z0-9_.]{3,16}$/.test(v))return $("#msg").textContent="Taxallus noto‘g‘ri.";
+    const {error}=await sb.from("profiles").insert({nickname:v});
+    if(error)return $("#msg").textContent=error.code==="23505"?"Bu taxallus band, boshqasini tanlang.":"Xato: "+error.message;
+    boot(uid)};
+}
+
+// ===== MA'LUMOT VA HISOB-KITOB =====
+async function loadAll(){
+  const [a,b]=await Promise.all([
+    sb.from("results").select("*").order("created_at",{ascending:false}).limit(300),
+    sb.from("ranked_results").select("user_id,nickname,score,created_at").order("created_at",{ascending:false}).limit(5000)]);
+  mine=a.data||[];board=b.data||[];err=(a.error||b.error)?(a.error||b.error).message:"";
+}
+function agg(rows,min){
+  const m={};rows.forEach(r=>{(m[r.user_id]=m[r.user_id]||{id:r.user_id,nick:r.nickname,s:[]}).s.push(r)});
+  return Object.values(m).map(u=>{u.s.sort((x,y)=>new Date(y.created_at)-new Date(x.created_at));
+    const l=u.s.slice(0,5);u.n=u.s.length;u.total=u.s.reduce((x,r)=>x+r.score,0);u.avg=l.reduce((x,r)=>x+r.score,0)/l.length;u.q=u.n>=min;return u})
+    .sort((x,y)=>y.q-x.q||y.avg-x.avg||y.total-x.total);
+}
+function weekStart(){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d}
+function streak(){const ds=new Set(mine.map(r=>dkey(new Date(r.created_at))));let d=new Date();if(!ds.has(dkey(d)))d=new Date(+d-DAY);let n=0;while(ds.has(dkey(d))){n++;d=new Date(+d-DAY)}return n}
+function progress(){
+  const f={};mine.forEach(r=>{if(r.mock_no){const t=Date.parse(r.created_at);if(!f[r.mock_no]||t<f[r.mock_no])f[r.mock_no]=t}});
+  const mx=Math.max(0,...Object.keys(f).map(Number));
+  if(!mx)return {un:1,openAt:0};
+  const openAt=f[mx]+WAIT_MS;
+  return {un:Math.min(25,Date.now()>=openAt?mx+1:mx),openAt};
+}
+const MED=["🥇","🥈","🥉"];
+
+function nav(){return `<nav><button data-t="home" class="${tab==="home"?"on":""}">🏠 Asosiy</button><button data-t="board" class="${tab==="board"?"on":""}">🏆 Reyting</button></nav>`}
+function bindNav(){app.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{tab=b.dataset.t;render()})}
+async function home(){screen="home";tab="home";app.innerHTML=shell(`<div class="card mu">Yuklanmoqda…</div>`);await loadAll();render()}
+function render(){
+  if(screen!=="home")return;
+  app.innerHTML=shell(tab==="home"?renderHome():renderBoard())+nav();bindNav();
+  if(tab==="home")bindHome();else bindBoard();
+}
+function renderHome(){
+  const all=agg(board,3),wk=agg(board.filter(r=>new Date(r.created_at)>=weekStart()),1);
+  const rank=all.findIndex(u=>u.id===uid)+1,me=all.find(u=>u.id===uid);
+  const bd=[];if(me&&me.q&&rank<=3)bd.push(MED[rank-1]+" "+rank+"-o‘rin");
+  if(wk[0]&&wk[0].id===uid)bd.push("🏆 Hafta chempioni");
+  const st=streak();if(st>=2)bd.push("🔥 "+st+" kun");
+  const {un,openAt}=progress(),doneSet=new Set(mine.filter(r=>r.ranked).map(r=>r.mock_no));
+  const nx=Array.from({length:un},(_,i)=>i+1).find(n=>!doneSet.has(n));
+  const left=Math.max(0,openAt-Date.now()),h=Math.floor(left/36e5),m=Math.floor(left%36e5/6e4);
+  const wait=un>=25?"Barcha 25 ta mock ochilgan.":left>0?`Keyingi mock ${h} soat ${m} daqiqadan so‘ng ochiladi.`:"Bu mock’ni topshirganingizdan 1 soat o‘tgach keyingisi ochiladi.";
+  const tc=nx?`<p>Mock #${nx} tayyor. Birinchi urinish reytingga hisoblanadi.</p><button data-go="${nx-1}" data-r="1">▶ Mock #${nx} ni boshlash</button><p class="mu">${wait}</p>`
+    :`<p>✅ Ochilgan mock’larning hammasi topshirildi.</p><p class="mu">${wait}</p>`;
+  const prac=Array.from({length:un},(_,i)=>`<button class="sec" data-go="${i}" data-r="${doneSet.has(i+1)?0:1}">#${i+1}${doneSet.has(i+1)?" ✓":""}</button>`).join("");
+  const doneToday=mine.some(r=>dkey(new Date(r.created_at))===dkey(new Date())),stk=streak();
+  const sk=stk>0?(doneToday?`🔥 ${stk} kunlik seriya. Bugun mashq qilib bo‘ldingiz!`:`🔥 ${stk} kunlik seriyangiz bor. Bugun mashq qilmasangiz u uziladi.`):"Har kuni mashq qilsangiz, 🔥 seriya hosil bo‘ladi.";
+  return `<div class="brand">${LOGO}<b>CEFR Speaking</b></div><div class="card hero"><div class="top"><div class="av">${esc(nick[0].toUpperCase())}</div><div style="flex:1;min-width:0"><b style="font-size:20px">${esc(nick)}</b> <button class="sec sm" id="ed" style="padding:2px 8px">✎</button><div class="bd">${bd.map(b=>`<span>${b}</span>`).join("")||'<span class="mu">Nishonlar mock topshirgach chiqadi</span>'}</div></div></div>
+  <div class="stats"><div><b>${me?me.total:0}</b><small>Jami ball</small></div><div><b>${me?me.avg.toFixed(1):"—"}</b><small>O‘rtacha</small></div><div><b>${me&&me.q?"#"+rank:"—"}</b><small>Reyting</small></div><div><b>${me?me.n:0}</b><small>Mock</small></div></div>
+  ${me&&!me.q?`<p class="mu">Reytingga kirish uchun yana ${3-me.n} ta reytingli mock topshiring.</p>`:""}</div>
+  <div class="card"><h2>Navbatdagi mock</h2>${tc}</div>
+  <div class="card"><h2>Barcha mock’lar</h2><p class="mu">Mock’ni topshirgach, 1 soatdan keyin keyingisi ochiladi. ✓ belgilini qayta ishlasangiz, u mashq bo‘ladi va ball bermaydi.</p><div class="pl">${prac}</div></div>
+  <div class="card"><h2>So‘nggi natijalar</h2>${err?`<p class="mu">Xato: ${esc(err)}</p>`:mine.length?mine.slice(0,10).map((r,i)=>`<div class="row2" data-det="${i}"><span class="n">${esc(r.part)} · ${new Date(r.created_at).toLocaleDateString()}${r.ranked?" 🏅":""}</span><b>${esc(r.level)} · ${r.score}/75 ›</b></div>`).join(""):'<p class="mu">Hozircha natija yo‘q.</p>'}</div>
+  <div class="card"><h2>Qo‘shimcha</h2><p class="mu">${sk}</p><div class="acts"><button class="sec" data-act="rem">⏰ Kunlik eslatma</button><button class="sec" data-act="mic">🎤 Mikrofonni sinash</button><button class="sec" data-act="inv">👥 Do‘stlarni taklif qilish</button><button class="sec" data-act="inst">📲 Telefonga o‘rnatish</button></div></div>
+  <button class="sec" id="out">Chiqish</button>
+  <div class="by2">Yaratuvchi: <a href="https://t.me/${TG_USER}" target="_blank" rel="noopener">Telegram @${TG_USER}</a></div>`;
+}
+function bindHome(){
+  app.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>begin(+b.dataset.go,b.dataset.r==="1"));
+  $("#out").onclick=()=>sb.auth.signOut();
+  app.querySelectorAll("[data-det]").forEach(b=>b.onclick=()=>showDetail(+b.dataset.det));
+  app.querySelectorAll("[data-act]").forEach(b=>b.onclick=()=>({mic:micTest,inst:installApp,rem:setReminder,inv:invite})[b.dataset.act]());
+  $("#ed").onclick=async()=>{const v=(prompt("Yangi taxallus (3–16 belgi, lotin harflari/raqam):",nick)||"").trim();
+    if(!v||v===nick)return;if(!/^[A-Za-z0-9_.]{3,16}$/.test(v))return alert("Taxallus noto‘g‘ri.");
+    const {error}=await sb.from("profiles").update({nickname:v}).eq("user_id",uid);
+    if(error)return alert(error.code==="23505"?"Bu taxallus band.":error.message);nick=v;await loadAll();render()};
+}
+function renderBoard(){
+  const rows=lbMode==="week"?agg(board.filter(r=>new Date(r.created_at)>=weekStart()),1):agg(board,3);
+  return `<h1>🏆 Reyting</h1><div class="tabs"><button class="${lbMode==="week"?"":"sec"}" data-m="week">Haftalik</button><button class="${lbMode==="all"?"":"sec"}" data-m="all">Umumiy</button></div>
+  <p class="mu">Ball: oxirgi 5 ta reytingli mock o‘rtachasi (75 dan). Umumiy jadvalga kirish uchun kamida 3 ta mock kerak.</p>
+  <div class="card">${err?`<p class="mu">Xato: ${esc(err)}</p>`:rows.length?rows.map((u,i)=>`<div class="row2 ${u.id===uid?"me":""} ${u.q?"":"dim"}"><span class="rk">${u.q&&i<3?MED[i]:i+1}</span><span class="n">${esc(u.nick)}</span><span class="mu">${u.n} mock</span><b>${u.avg.toFixed(1)}</b></div>`).join(""):'<p class="mu">Hali hech kim yo‘q. Birinchi bo‘ling!</p>'}</div>`;
+}
+function bindBoard(){app.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{lbMode=b.dataset.m;render()})}
+
+// ===== TEST =====
+const imgCache={};let imgNote="",wmOk=0,wmErr="";
+async function wm1(q){
+  const r=await fetch("https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6&gsrlimit=15&prop=imageinfo&iiprop=url|mime|size&iiurlwidth=800&gsrsearch="+encodeURIComponent(q+" filetype:bitmap -logo -map -diagram -flag -icon"));
+  const j=await r.json();
+  const pg=Object.values((j.query||{}).pages||{}).filter(x=>x.imageinfo&&/jpeg/.test(x.imageinfo[0].mime)&&x.imageinfo[0].width>=700&&x.imageinfo[0].width>=x.imageinfo[0].height).sort((a,b)=>a.index-b.index);
+  return pg.length?pg[0].imageinfo[0].thumburl:"";
+}
+async function wm(k,n){
+  const key=k+"|"+n;if(key in imgCache)return imgCache[key];
+  const w=k.replace(/,/g," ").split(" "),vs=[w.join(" "),w.slice(0,3).join(" "),w.slice(0,2).join(" ")].filter((v,i,a)=>a.indexOf(v)===i);
+  let u="";
+  for(const v of vs){try{u=await wm1(v);if(u)break}catch(e){wmErr=String(e).slice(0,70)}}
+  if(u)wmOk++;else if(!wmErr)wmErr="qidiruv natija bermadi ("+k+")";
+  return imgCache[key]=u;
+}
+async function resolveImgs(st){
+  const jobs=[];
+  st.forEach(x=>{
+    (x.pics||[]).forEach(p=>{if(p.k&&!p.done){p.done=1;jobs.push(wm(p.k,p.n).then(u=>{if(u)p.img=u}))}});
+    if(x.imgk&&!x.done){x.done=1;jobs.push(wm(x.imgk,x.imgn).then(u=>{if(u)x.img=u}))}
+  });
+  await Promise.race([Promise.all(jobs),new Promise(r=>setTimeout(r,5000))]);
+  imgNote=wmOk?"":"Rasm manbasiga ulanib bo‘lmadi: "+(wmErr||"kutish vaqti tugadi");
+}
+async function begin(idx,ranked){
+  try{stream=await navigator.mediaDevices.getUserMedia({audio:true})}catch{return alert("Mikrofonga ruxsat bering.")}
+  ctx=new (window.AudioContext||window.webkitAudioContext)();inRate=ctx.sampleRate;
+  src=ctx.createMediaStreamSource(stream);proc=ctx.createScriptProcessor(4096,1,1);
+  proc.onaudioprocess=e=>{if(capturing)chunks.push(new Float32Array(e.inputBuffer.getChannelData(0)))};
+  src.connect(proc);proc.connect(ctx.destination);
+  Object.values(audioUrl).forEach(u=>{try{URL.revokeObjectURL(u)}catch{}});audioUrl={};steps=buildMock(idx);curIdx=idx;curRanked=ranked;await resolveImgs(steps);
+  screen="test";aborted=false;unit=null;pending=[];
+  if(window.speechSynthesis)speechSynthesis.speak(new SpeechSynthesisUtterance(""));
+  run();
+}
+function setStatus(k){const e=$("#stt");if(!e)return;
+  const m={speak:"🔊 Savol o‘qilmoqda",prep:"⏱ Tayyorlaning",rec:"Eshitilmoqda"};
+  e.className=k==="rec"?"rec":"";e.style.display=m[k]?"block":"none";e.textContent=m[k]||""}
+function speak(t){return new Promise(res=>{
+  if(!window.speechSynthesis||aborted)return res();
+  const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=.95;let d=false;const f=()=>{if(!d){d=true;res()}};
+  u.onend=f;u.onerror=f;setTimeout(f,25000);speechSynthesis.speak(u)})}
+function beep(){try{const c=new AudioContext(),o=c.createOscillator();o.frequency.value=880;o.connect(c.destination);o.start();setTimeout(()=>{o.stop();c.close()},200)}catch{}}
+function stepper(p){return `<div class="st">`+[1,2,3].map(i=>`${i>1?`<div class="bar ${p>=i?"done":""}"></div>`:""}<div class="c ${p>i?"done":p===i?"on":""}">${p>i?"✓":i}</div>`).join("")+`</div>`}
+function view(s){
+  let h=`<div class="q">`;
+  h+=s.n?`<b>Question ${s.n}.</b> ${esc(s.text)}`:`<b>${esc(s.text)}</b>`;
+  if(s.pics)h+=`<div class="pics">${s.pics.map(p=>p.img?`<img class="photo" src="${p.img}" alt="" onerror="this.outerHTML='<div class=pic>${p.e}<small>rasm yuklanmadi</small></div>'">`:`<div class="pic">${p.e}<small>${esc(p.c)}</small></div>`).join("")}</div>`;
+  if(s.img)h+=`<img class="photo" src="${s.img}" alt="" onerror="this.outerHTML='<div class=mu>rasm yuklanmadi</div>'">`;
+  if(imgNote&&(s.pics||s.img))h+=`<div class="mu" style="font-size:12px">${esc(imgNote)}</div>`;
+  if(s.bullets)h+=`<ul>${s.bullets.map(b=>`<li>${esc(b)}</li>`).join("")}</ul>`;
+  if(s.table)h+=`<table><tr><th colspan="2" style="text-align:center">${esc(s.table.title)}</th></tr><tr><th>Pros</th><th>Cons</th></tr><tr><td><ul>${s.table.pros.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></td><td><ul>${s.table.cons.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></td></tr></table>`;
+  h+=`</div>`;
+  app.innerHTML=shell(`<div class="card exam">${stepper(s.part)}<div class="row">${h}<div class="tm" id="tm"></div></div>
+  <div style="display:flex;gap:8px;margin-top:20px"><button class="sec sm" id="skip">Keyingisi ›</button><button class="sec sm" id="stop">✕ To‘xtatish</button></div></div>`);
+  $("#skip").onclick=()=>skipFn&&skipFn();
+  $("#stop").onclick=()=>{aborted=true;speechSynthesis&&speechSynthesis.cancel();skipFn&&skipFn();cleanup();home()};
+}
+function draw(left,total,rect,txt){
+  const el=$("#tm");if(!el)return;
+  if(rect){el.innerHTML=`<div class="rect">${txt||mmss(Math.max(left,0))}</div>`;return}
+  const C=2*Math.PI*62;
+  el.innerHTML=`<div class="ring"><svg width="140" height="140"><circle cx="70" cy="70" r="62" fill="none" stroke="#e3e6e8" stroke-width="12"/><circle cx="70" cy="70" r="62" fill="none" stroke="#111" stroke-width="12" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-Math.max(left,0)/total)}"/></svg><b>${Math.max(left,0)}</b></div>`;
+}
+function count(total,rect){return new Promise(res=>{
+  const end=Date.now()+total*1000;let left=total;draw(left,total,rect);
+  const t=setInterval(()=>{
+    const l=Math.max(0,Math.ceil((end-Date.now())/1000));
+    if(l!==left){left=l;draw(left,total,rect)}
+    if(left<=0){clearInterval(t);skipFn=null;res(total)}
+  },200);
+  skipFn=()=>{clearInterval(t);skipFn=null;res(total-left)};
+})}
+async function run(){
+  for(const s of steps){
+    if(aborted)return;
+    if(unit!==s.pn){if(unit)finishUnit();unit=s.pn;chunks=[];secs=0;qs=[]}
+    qs.push((s.n?"Q"+s.n+": ":"")+s.text+(s.bullets?" "+s.bullets.join(" "):"")+(s.desc?" ["+s.desc+"]":"")+(s.table?" [Table pros: "+s.table.pros.join("; ")+". Cons: "+s.table.cons.join("; ")+"]":""));
+    view(s);draw(s.prep,s.prep,false);
+    setStatus("speak");await speak(s.text+(s.bullets?" "+s.bullets.join(" "):""));setStatus("prep");
+    if(aborted)return;
+    await count(s.prep,false);
+    if(aborted)return;
+    beep();capturing=true;setStatus("rec");
+    const used=await count(s.ans,!!s.long);
+    capturing=false;setStatus("");secs+=used;
+    if(s.long&&!aborted){draw(0,1,true,"Time up!");await new Promise(r=>setTimeout(r,900))}
+  }
+  if(aborted)return;
+  finishUnit();cleanup();
+  app.innerHTML=shell(`<div class="card"><h2>Baholanmoqda…</h2></div>`);
+  result(await Promise.all(pending));
+}
+function cleanup(){capturing=false;setStatus("");try{proc.disconnect();src.disconnect();stream.getTracks().forEach(t=>t.stop());ctx.close()}catch{}}
+function finishUnit(){
+  const pn=unit,question=qs.join(" | "),seconds=secs,ch=chunks;
+  pending.push((async()=>{
+    if(seconds<3)return {pn,skipped:true};
+    try{
+      const b64=await toWavB64(ch,pn);
+      const {data}=await sb.auth.getSession();
+      const r=await fetch("/api/grade",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+data.session.access_token},body:JSON.stringify({audio:b64,part:pn,question,seconds})});
+      const j=await r.json();if(!r.ok)throw new Error(j.error||"Xato");
+      return {pn,...j};
+    }catch(e){return {pn,error:e.message}}
+  })());
+}
+function toWavB64(ch,pn){
+  const R=11025,n=ch.reduce((a,c)=>a+c.length,0),all=new Float32Array(n);let o=0;
+  ch.forEach(c=>{all.set(c,o);o+=c.length});
+  const ratio=inRate/R,len=Math.floor(n/ratio),pcm=new Int16Array(len);
+  for(let i=0;i<len;i++){const s=Math.floor(i*ratio),e=Math.min(Math.floor((i+1)*ratio),n);let sum=0;
+    for(let j=s;j<e;j++)sum+=all[j];pcm[i]=Math.max(-1,Math.min(1,sum/Math.max(e-s,1)))*32767}
+  const h=new DataView(new ArrayBuffer(44)),w=(p,s)=>[...s].forEach((c,i)=>h.setUint8(p+i,c.charCodeAt(0)));
+  w(0,"RIFF");h.setUint32(4,36+len*2,true);w(8,"WAVEfmt ");h.setUint32(16,16,true);h.setUint16(20,1,true);h.setUint16(22,1,true);
+  h.setUint32(24,R,true);h.setUint32(28,R*2,true);h.setUint16(32,2,true);h.setUint16(34,16,true);w(36,"data");h.setUint32(40,len*2,true);
+  const blob=new Blob([h,pcm],{type:"audio/wav"});if(pn){try{audioUrl[pn]=URL.createObjectURL(blob)}catch{}}
+  return new Promise(ok=>{const f=new FileReader();f.onload=()=>ok(f.result.split(",")[1]);f.readAsDataURL(blob)});
+}
+const lvl=s=>s>=65?"C1":s>=51?"B2":s>=38?"B1":"Below B1";
+async function result(rs){
+  screen="result";
+  const done=rs.filter(r=>!r.error&&!r.skipped),skipped=rs.filter(r=>r.skipped),failed=rs.filter(r=>r.error);
+  const avg=k=>done.length?(done.reduce((a,r)=>a+(+r[k]||0),0)/done.length).toFixed(1):"—";
+  const score=done.length?Math.round(done.reduce((a,r)=>a+(+r.score||0),0)/done.length):0,level=done.length?lvl(score):"—";
+  let note="";
+  if(!done.length)note="Hech bir qism ishlanmagani uchun natija saqlanmadi.";
+  else{
+    const detail=rs.map(r=>r.skipped?{pn:r.pn,skipped:true}:r.error?{pn:r.pn,error:r.error}:{pn:r.pn,score:r.score,level:r.level,fluency:r.fluency,vocabulary:r.vocabulary,grammar:r.grammar,pronunciation:r.pronunciation,task:r.task,summary:r.summary,tips:r.tips,transcript:r.transcript});
+    const row={part:"Mock #"+(curIdx+1)+(done.length<4?" ("+done.length+"/4 qism)":""),level,score,mock_no:curIdx+1,ranked:curRanked&&done.length===4};
+    let {error}=await sb.from("results").insert({...row,detail});
+    if(error&&/detail/i.test(error.message))({error}=await sb.from("results").insert(row));
+    if(error)note="Natija saqlanmadi: "+error.message;
+    else if(done.length<4)note="Natija tarixga saqlandi. Reytingga faqat 4 ta qism to‘liq ishlangan mock hisoblanadi.";
+    else note=curRanked?"✅ Natija reytingga hisoblandi.":"Mashq natijasi saqlandi (reytingga hisoblanmaydi).";
+  }
+  const cards=rs.map(r=>`<div class="card">${r.skipped?`<b>${esc(r.pn)}:</b> <span class="mu">o‘tkazib yuborildi</span>`:r.error?`<b>${esc(r.pn)}:</b> baholanmadi (${esc(r.error)})`:`<b>${esc(r.pn)} · ${esc(r.level)} · ${esc(r.score)}/75</b><br>${esc(r.summary)}${(r.tips||[]).map(t=>`<br>• ${esc(t)}`).join("")}${audioUrl[r.pn]?`<audio controls preload="none" src="${audioUrl[r.pn]}" style="width:100%;margin-top:10px"></audio>`:""}${r.transcript?`<details><summary>Siz aytgan matn</summary><p class="mu">${esc(r.transcript)}</p></details>`:""}`}</div>`).join("");
+  app.innerHTML=shell(`<div class="card exam">${stepper(4)}<div class="mu" style="text-align:center">Umumiy daraja${done.length&&done.length<4?` (${done.length}/4 qism)`:""}</div><div class="big">${level}</div><div class="mu" style="text-align:center">${done.length?score+" / 75":""}</div>
+  <div class="g"><div>Ravonlik<br><b>${avg("fluency")}</b></div><div>Lug‘at<br><b>${avg("vocabulary")}</b></div><div>Grammatika<br><b>${avg("grammar")}</b></div><div>Talaffuz<br><b>${avg("pronunciation")}</b></div></div>
+  <p class="mu">${esc(note)}</p></div>${cards}<button id="back">Bosh sahifa</button>`);
+  $("#back").onclick=home;
+}
+
+// ===== QO'SHIMCHA: ulashish, batafsil, mikrofon, o'rnatish, eslatma =====
+let audioUrl={},deferredInstall=null;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredInstall=e});
+if("serviceWorker" in navigator)navigator.serviceWorker.register("/sw.js").catch(()=>{});
+async function invite(){
+  const t="CEFR Speaking mock: bepul tekshiruv, sun’iy intellekt baholaydi. Ro‘yxatdan o‘ting va reytingda raqobatlashing:",u=location.origin;
+  if(navigator.share){try{await navigator.share({title:"CEFR Speaking",text:t,url:u})}catch{}return}
+  try{await navigator.clipboard.writeText(t+" "+u);alert("Havola nusxalandi. Do‘stlaringizga yuboring.")}catch{prompt("Havolani nusxalang:",u)}
+}
+function showDetail(i){
+  const r=mine[i];if(!r)return;screen="detail";
+  const d=Array.isArray(r.detail)?r.detail:[];
+  const cards=d.length?d.map(x=>x.skipped?`<div class="card"><b>${esc(x.pn)}:</b> <span class="mu">o‘tkazib yuborilgan</span></div>`:x.error?`<div class="card"><b>${esc(x.pn)}:</b> baholanmadi (${esc(x.error)})</div>`:`<div class="card"><b>${esc(x.pn)} · ${esc(x.level)} · ${esc(x.score)}/75</b>
+    <div class="g"><div>Ravonlik<br><b>${esc(x.fluency)}</b></div><div>Lug‘at<br><b>${esc(x.vocabulary)}</b></div><div>Grammatika<br><b>${esc(x.grammar)}</b></div><div>Talaffuz<br><b>${esc(x.pronunciation)}</b></div></div>
+    <p>${esc(x.summary)}</p>${(x.tips||[]).map(t=>`<div>• ${esc(t)}</div>`).join("")}${x.transcript?`<details><summary>Siz aytgan matn</summary><p class="mu">${esc(x.transcript)}</p></details>`:""}</div>`).join(""):`<div class="card"><p class="mu">Bu natija uchun batafsil ma’lumot saqlanmagan.</p></div>`;
+  app.innerHTML=shell(`<h1>${esc(r.part)}</h1><p class="mu">${new Date(r.created_at).toLocaleString()} · ${esc(r.level)} · ${r.score}/75</p>${cards}<button id="back">Orqaga</button>`);
+  $("#back").onclick=home;
+}
+function micTest(){
+  screen="mic";
+  app.innerHTML=shell(`<div class="card"><h2>🎤 Mikrofon va ovozni sinash</h2><p>“Yozish” ni bosib, 4 soniya gapiring. Keyin yozuv qayta eshittiriladi.</p>
+  <div style="height:14px;background:#e6e9f5;border-radius:8px;overflow:hidden"><div id="lvb" style="height:100%;width:0;background:#4f9238"></div></div>
+  <p id="mt" class="mu"></p><div id="mp"></div><button id="mr">● Yozish (4 soniya)</button> <button class="sec" id="ms">🔊 Savol ovozini sinash</button></div><button class="sec" id="back">Orqaga</button>`);
+  $("#back").onclick=home;
+  $("#ms").onclick=()=>{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance("This is a sound test. Can you hear me?");u.lang="en-US";speechSynthesis.speak(u)}catch{$("#mt").textContent="Brauzer ovozli o‘qishni qo‘llamaydi."}};
+  $("#mr").onclick=async()=>{
+    let st;try{st=await navigator.mediaDevices.getUserMedia({audio:true})}catch{return $("#mt").textContent="Mikrofonga ruxsat berilmadi."}
+    const ac=new (window.AudioContext||window.webkitAudioContext)(),an=ac.createAnalyser();an.fftSize=512;ac.createMediaStreamSource(st).connect(an);
+    const buf=new Uint8Array(an.fftSize);let peak=0,run=true;
+    (function tick(){if(!run)return;an.getByteTimeDomainData(buf);let m=0;for(const v of buf)m=Math.max(m,Math.abs(v-128));peak=Math.max(peak,m);const b=$("#lvb");if(b)b.style.width=Math.min(100,m*2.2)+"%";requestAnimationFrame(tick)})();
+    let rec;try{rec=new MediaRecorder(st)}catch{st.getTracks().forEach(t=>t.stop());return $("#mt").textContent="Brauzer yozishni qo‘llamaydi."}
+    const parts=[];rec.ondataavailable=e=>parts.push(e.data);
+    rec.onstop=()=>{run=false;st.getTracks().forEach(t=>t.stop());try{ac.close()}catch{}
+      const blob=new Blob(parts,{type:rec.mimeType||"audio/webm"});
+      $("#mp").innerHTML=`<audio controls src="${URL.createObjectURL(blob)}" style="width:100%;margin:8px 0"></audio>`;
+      $("#mt").textContent=peak<8?"⚠️ Ovoz eshitilmadi yoki juda past. Telefonga yaqinroq gapiring.":peak<25?"🙂 Ovoz bor, lekin sal past. Yaqinroq gapirgan yaxshi.":"✅ Mikrofon yaxshi ishlayapti.";
+      $("#mr").disabled=false};
+    $("#mr").disabled=true;$("#mt").textContent="Gapiring…";rec.start();setTimeout(()=>rec.stop(),4000);
+  };
+}
+function installApp(){
+  if(deferredInstall){deferredInstall.prompt();deferredInstall=null}
+  else alert("Telefonga o‘rnatish:\n• Android Chrome: ⋮ menyu → “Ilovani o‘rnatish” yoki “Bosh ekranga qo‘shish”.\n• iPhone Safari: Ulashish tugmasi → “Bosh ekranga qo‘shish”.");
+}
+function setReminder(){
+  const v=(prompt("Kunlik eslatma vaqti (soat:daqiqa):","19:00")||"").trim(),m=v.match(/^(\d{1,2}):(\d{2})$/);
+  if(!m)return;
+  const d=new Date(),ymd=d.getFullYear()+String(d.getMonth()+1).padStart(2,"0")+String(d.getDate()).padStart(2,"0"),t=m[1].padStart(2,"0")+m[2]+"00";
+  const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//CEFR Speaking//UZ","BEGIN:VEVENT","UID:cefr-daily@"+location.host,"DTSTAMP:"+ymd+"T000000Z","DTSTART:"+ymd+"T"+t,"DURATION:PT15M","RRULE:FREQ=DAILY","SUMMARY:CEFR Speaking mashqi","DESCRIPTION:Bugungi mock’ni topshiring: "+location.origin,"BEGIN:VALARM","TRIGGER:PT0M","ACTION:DISPLAY","DESCRIPTION:CEFR Speaking mashqi","END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));a.download="cefr-eslatma.ics";document.body.appendChild(a);a.click();a.remove();
+  alert("Fayl yuklandi. Uni oching va taqvimga qo‘shing, eslatma har kuni "+v+" da keladi.");
+}
+</script></body></html>
