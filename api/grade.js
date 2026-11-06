@@ -71,17 +71,25 @@ Step 3. summary: 1-2 short sentences in Uzbek naming the main strength and weakn
   });
 
   let r, lastErr = "";
-  for (const model of MODELS) {
-    const gen = { responseMimeType: "application/json", responseSchema: SCHEMA, temperature: 0.2, maxOutputTokens: 1200 };
-    if (/2\.5/.test(model)) gen.thinkingConfig = { thinkingBudget: 0 }; // o'ylash o'chiq: tezroq
-    r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY },
-      body: body(gen),
-    });
-    if (r.ok) break;
-    lastErr = model + ": " + (await r.text()).slice(0, 200);
-    if (![400, 404, 429, 500, 503].includes(r.status)) break;
+  const t0 = Date.now();
+  const sleep = (ms) => new Promise((z) => setTimeout(z, ms));
+  for (let pass = 0; pass < 2 && !(r && r.ok); pass++) {
+    if (pass) {
+      if (Date.now() - t0 > 6000) break; // vaqt tugab qolmasin
+      await sleep(1500);
+    }
+    for (const model of MODELS) {
+      const gen = { responseMimeType: "application/json", responseSchema: SCHEMA, temperature: 0.2, maxOutputTokens: 1200 };
+      if (/2\.5/.test(model)) gen.thinkingConfig = { thinkingBudget: 0 }; // o'ylash o'chiq: tezroq
+      r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY },
+        body: body(gen),
+      });
+      if (r.ok) break;
+      lastErr = model + ": " + (await r.text()).slice(0, 200);
+      if (![400, 404, 429, 500, 503].includes(r.status)) break;
+    }
   }
   if (!r.ok) return res.status(502).json({ error: "Gemini xatosi", detail: lastErr });
 
