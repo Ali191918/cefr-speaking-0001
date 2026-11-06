@@ -397,18 +397,29 @@ async function run(){
   result(await Promise.all(pending));
 }
 function cleanup(){capturing=false;setStatus("");try{proc.disconnect();src.disconnect();stream.getTracks().forEach(t=>t.stop());ctx.close()}catch{}}
+let gq=Promise.resolve();
 function finishUnit(){
   const pn=unit,question=qs.join(" | "),seconds=secs,ch=chunks;
-  pending.push((async()=>{
+  const job=async()=>{
     if(seconds<3)return {pn,skipped:true};
+    let last="Xato";
     try{
       const b64=await toWavB64(ch,pn);
-      const {data}=await sb.auth.getSession();
-      const r=await fetch("/api/grade",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+data.session.access_token},body:JSON.stringify({audio:b64,part:pn,question,seconds})});
-      const j=await r.json();if(!r.ok)throw new Error(j.error||"Xato");
-      return {pn,...j};
-    }catch(e){return {pn,error:e.message}}
-  })());
+      for(let a=0;a<3;a++){
+        try{
+          const {data}=await sb.auth.getSession();
+          const r=await fetch("/api/grade",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+data.session.access_token},body:JSON.stringify({audio:b64,part:pn,question,seconds})});
+          const j=await r.json();
+          if(r.ok)return {pn,...j};
+          last=(j.error||"Xato")+(j.detail?" — "+String(j.detail).slice(0,140):"");
+          if(r.status===400||r.status===401)break;
+        }catch(e){last=e.message}
+        if(a<2)await new Promise(z=>setTimeout(z,4000*(a+1)));
+      }
+    }catch(e){last=e.message}
+    return {pn,error:last};
+  };
+  const pr=gq.then(job);gq=pr.catch(()=>{});pending.push(pr);
 }
 function toWavB64(ch,pn){
   const R=11025,n=ch.reduce((a,c)=>a+c.length,0),all=new Float32Array(n);let o=0;
@@ -499,3 +510,4 @@ function setReminder(){
   alert("Fayl yuklandi. Uni oching va taqvimga qo‘shing, eslatma har kuni "+v+" da keladi.");
 }
 </script></body></html>
+
